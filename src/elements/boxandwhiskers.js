@@ -32,6 +32,27 @@ function transitionBoxPlot(start, view, model, ease) {
   }
 }
 
+// utility to calculate the space between the label and the element
+function calculateOffSet(num) {
+  let aux = num.toString().split('.');
+  let truncatedOffeset = aux[1].length === 1 ? 10 : 0;
+  let offset = 0;
+  if (num < 99) {
+    offset = 40; // 2 ciphers number
+  } else if (num >= 99 && num <= 999) {
+    offset = 50; // 3 ciphers number
+  }
+  return offset - truncatedOffeset; // 4 ciphers number
+}
+
+// utility used to truncate decimals
+// eslint-disable-next-line
+Number.prototype.toFixedDown = function(digits) { 
+  var re = new RegExp('(\\d+\\.\\d{' + digits + '})(\\d)');
+  var m = this.toString().match(re);
+  return m ? parseFloat(m[1]) : this.valueOf();
+};
+
 const BoxAndWiskers = Chart.elements.BoxAndWhiskers = ArrayElementBase.extend({
   transition(ease) {
     const r = Chart.Element.prototype.transition.call(this, ease);
@@ -138,6 +159,33 @@ const BoxAndWiskers = Chart.elements.BoxAndWhiskers = ArrayElementBase.extend({
     ctx.lineTo(x, boxplot.q3);
     ctx.closePath();
     ctx.stroke();
+
+    if (this._chart.chart.config.options.showDataLabels) {
+      this.drawBoxPlotVertValueLabels(vm, boxplot, ctx);
+    }
+  },
+  drawBoxPlotVertValueLabels(vm, boxplot, ctx) {
+    const x = vm.x;
+    const indexBoxplot = this._view.indexBoxplot;
+    const indexDataset = this._view.indexDataset;
+    const width = vm.width;
+    const x0 = x - width / 2;
+    // Draw the label for q1
+    const whiskerq1 = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].q1.toFixedDown(2);
+    ctx.fillText(whiskerq1, x0 - calculateOffSet(whiskerq1), boxplot.q1);
+    // Draw the label for median
+    const whiskerMedianText = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].median.toFixedDown(2);
+    ctx.fillText(whiskerMedianText, x0 + width, boxplot.median);
+    // Draw the label for q3
+    const whiskerq3 = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].q3.toFixedDown(2);
+    ctx.fillText(whiskerq3, x0 - calculateOffSet(whiskerq3), boxplot.q3);
+    // Draw the label for whiskerMin
+    const whiskerMinText = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].whiskerMin.toFixedDown(2);
+    ctx.fillText(whiskerMinText, x0 + width, boxplot.whiskerMin);
+    // Draw the label for whiskerMax
+    const whiskerMaxText = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].whiskerMax.toFixedDown(2);
+    ctx.fillText(whiskerMaxText, x0 + width, boxplot.whiskerMax);
+
   },
   _drawBoxPlotHoriz(vm, boxplot, ctx) {
     const y = vm.y;
