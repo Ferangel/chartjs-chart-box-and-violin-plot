@@ -1,27 +1,16 @@
 {
-  "name": "chartjs-chart-box-and-violin-plot",
+  "name": "chartjs-chart-box-and-violin-plot-with-datalabels",
   "description": "Chart.js module for charting boxplots",
-  "version": "2.3.0",
-  "author": {
-    "name": "datavisyn",
-    "email": "contact@datavisyn.io",
-    "url": "https://www.datavisyn.io"
-  },
-  "contributors": [{
-      "name": "Samuel Gratzl",
-      "email": "sam@sgratzl.com",
-      "url": "https://www.sgratzl.com"
-    },
-    {
-      "name": "Stefan Luger",
-      "email": "stefan.luger@datavisyn.io",
-      "url": "https://github.com/sluger"
-    }
+  "version": "2.3.1",
+  "author": "datavisyn <contact@datavisyn.io> (https://www.datavisyn.io)",
+  "contributors": [
+    "Samuel Gratzl <sam@sgratzl.com> (https://www.sgratzl.com)",
+    "Stefan Luger <stefan.luger@datavisyn.io> (https://github.com/sluger)"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/datavisyn/chartjs-chart-box-and-violin-plot.git"
+    "url": "git+https://github.com/datavisyn/chartjs-chart-box-and-violin-plot.git"
   },
   "main": "build/Chart.BoxPlot.js",
   "unpkg": "build/Chart.BoxPlot.min.js",
@@ -68,5 +57,9 @@
     "release:minor": "release-it minor",
     "release:patch": "release-it patch",
     "release:pre": "release-it --preRelease=alpha --npm.tag=next"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/datavisyn/chartjs-chart-box-and-violin-plot/issues"
+  },
+  "homepage": "https://github.com/datavisyn/chartjs-chart-box-and-violin-plot#readme"
 }
