@@ -34,15 +34,7 @@ function transitionBoxPlot(start, view, model, ease) {
 
 // utility to calculate the space between the label and the element
 function calculateOffSet(num) {
-  let aux = num.toString().split('.');
-  let truncatedOffeset = aux[1].length === 1 ? 10 : 0;
-  let offset = 0;
-  if (num < 99) {
-    offset = 40; // 2 ciphers number
-  } else if (num >= 99 && num <= 999) {
-    offset = 50; // 3 ciphers number
-  }
-  return offset - truncatedOffeset; // 4 ciphers number
+  return num.length * 6;
 }
 
 // utility used to truncate decimals
@@ -107,7 +99,7 @@ const BoxAndWiskers = Chart.elements.BoxAndWhiskers = ArrayElementBase.extend({
   },
   _drawBoxPlotVert(vm, boxplot, ctx) {
     const x = vm.x;
-    const width = vm.width;
+    const width = vm.width - 60;
     const x0 = x - width / 2;
 
     // Draw the q1>q3 box
@@ -168,7 +160,7 @@ const BoxAndWiskers = Chart.elements.BoxAndWhiskers = ArrayElementBase.extend({
     const x = vm.x;
     const indexBoxplot = this._view.indexBoxplot;
     const indexDataset = this._view.indexDataset;
-    const width = vm.width;
+    const width = vm.width - 60;
     const x0 = x - width / 2;
     // Draw the label for q1
     const whiskerq1 = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].q1.toFixedDown(2);
