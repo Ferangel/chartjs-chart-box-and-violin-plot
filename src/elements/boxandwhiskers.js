@@ -99,7 +99,7 @@ const BoxAndWiskers = Chart.elements.BoxAndWhiskers = ArrayElementBase.extend({
   },
   _drawBoxPlotVert(vm, boxplot, ctx) {
     const x = vm.x;
-    const width = vm.width - 60;
+    const width = vm.width;
     const x0 = x - width / 2;
 
     // Draw the q1>q3 box
@@ -151,12 +151,16 @@ const BoxAndWiskers = Chart.elements.BoxAndWhiskers = ArrayElementBase.extend({
     ctx.lineTo(x, boxplot.q3);
     ctx.closePath();
     ctx.stroke();
+
+    if (this._chart.chart.config.options.showDataLabels) {
+      this.drawBoxPlotVertValueLabels(vm, boxplot, ctx);
+    }
   },
   drawBoxPlotVertValueLabels(vm, boxplot, ctx) {
     const x = vm.x;
     const indexBoxplot = this._view.indexBoxplot;
     const indexDataset = this._view.indexDataset;
-    const width = vm.width - 60;
+    const width = vm.width;
     const x0 = x - width / 2;
     // Draw the label for q1
     const whiskerq1 = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].q1.toFixedDown(2);
