@@ -34,7 +34,7 @@ function transitionBoxPlot(start, view, model, ease) {
 
 // utility to calculate the space between the label and the element
 function calculateOffSet(num) {
-  return num.length * 6;
+  return num.length * 5 + 2;
 }
 
 // utility used to truncate decimals
@@ -157,25 +157,27 @@ const BoxAndWiskers = Chart.elements.BoxAndWhiskers = ArrayElementBase.extend({
     }
   },
   drawBoxPlotVertValueLabels(vm, boxplot, ctx) {
+
+    ctx.font = "bold 10px \"Helvetica Neue\", \"Helvetica\", \"Arial\", sans-serif";
     const x = vm.x;
     const indexBoxplot = this._view.indexBoxplot;
     const indexDataset = this._view.indexDataset;
     const width = vm.width;
     const x0 = x - width / 2;
     // Draw the label for q1
-    const whiskerq1 = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].q1.toFixedDown(2);
+    const whiskerq1 = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].q1.toFixed(2);
     ctx.fillText(whiskerq1, x0 - calculateOffSet(whiskerq1), boxplot.q1);
     // Draw the label for median
-    const whiskerMedianText = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].median.toFixedDown(2);
+    const whiskerMedianText = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].median.toFixed(2);
     ctx.fillText(whiskerMedianText, x0 + width, boxplot.median);
     // Draw the label for q3
-    const whiskerq3 = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].q3.toFixedDown(2);
+    const whiskerq3 = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].q3.toFixed(2);
     ctx.fillText(whiskerq3, x0 - calculateOffSet(whiskerq3), boxplot.q3);
     // Draw the label for whiskerMin
-    const whiskerMinText = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].whiskerMin.toFixedDown(2);
+    const whiskerMinText = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].whiskerMin.toFixed(2);
     ctx.fillText(whiskerMinText, x0 + width, boxplot.whiskerMin);
     // Draw the label for whiskerMax
-    const whiskerMaxText = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].whiskerMax.toFixedDown(2);
+    const whiskerMaxText = ' ' + this._chart.chart.config.data.datasets[indexBoxplot].data[indexDataset].whiskerMax.toFixed(2);
     ctx.fillText(whiskerMaxText, x0 + width, boxplot.whiskerMax);
 
   },
