@@ -158,7 +158,7 @@ const BoxAndWiskers = Chart.elements.BoxAndWhiskers = ArrayElementBase.extend({
   },
   drawBoxPlotVertValueLabels(vm, boxplot, ctx) {
 
-    ctx.font = "bold 10px \"Helvetica Neue\", \"Helvetica\", \"Arial\", sans-serif";
+    ctx.font = 'bold 10px \"Helvetica Neue\", \"Helvetica\", \"Arial\", sans-serif';
     const x = vm.x;
     const indexBoxplot = this._view.indexBoxplot;
     const indexDataset = this._view.indexDataset;
